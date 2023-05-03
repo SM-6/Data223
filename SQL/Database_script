@@ -1,0 +1,88 @@
+-- Create the database and set it as the current database
+CREATE DATABASE IF NOT EXISTS sparta;
+USE sparta;
+
+-- Drop existing tables if they exist
+DROP TABLE IF EXISTS people;
+DROP TABLE IF EXISTS modules;
+DROP TABLE IF EXISTS courses;
+DROP TABLE IF EXISTS trainers;
+DROP TABLE IF EXISTS clients;
+
+-- Create the tables
+CREATE TABLE clients (
+    id INT PRIMARY KEY,
+    business_name VARCHAR(100),
+    contact_person VARCHAR(100),
+    contact_email VARCHAR(100),
+    contact_phone VARCHAR(20)
+);
+
+CREATE TABLE people (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(100),
+    phone VARCHAR(20),
+    client_id INT,
+    FOREIGN KEY (client_id) REFERENCES clients(id)
+);
+
+CREATE TABLE trainers (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(100),
+    phone VARCHAR(20),
+    expertise VARCHAR(100)
+);
+
+CREATE TABLE courses (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    start_date DATE,
+    end_date DATE,
+    trainer_id INT,
+    FOREIGN KEY (trainer_id) REFERENCES trainers(id)
+);
+
+CREATE TABLE modules (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    course_id INT,
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+
+-- Insert data into tables
+INSERT INTO clients (id, business_name, contact_person, contact_email, contact_phone)
+VALUES
+    (104, 'Google', 'Tressa Joana', 'Tressajoana@google.com', '+447514897246'),
+    (105, 'Microsoft', 'Jane Smith', 'Janesmith@microsoft.com', '+447812547894'),
+    (106, 'Sportas', 'Aurora Lizzy', 'A.lizzy@sportas.com', '+447849632541');
+
+
+INSERT INTO people (id, first_name, last_name, email, phone, client_id)
+VALUES
+    (1, 'Alice', 'Johnson', 'alice.johnson@spartaglobal.com', '07555987654', 104),
+    (2, 'Carol', 'Smith', 'carol.smith@spartaglobal.com', '07875432198', 105),
+    (3, 'David', 'Brown', 'david.brown@spartaglobal.com', '07411122227', 106);
+
+
+INSERT INTO trainers (id, first_name, last_name, email, phone, expertise)
+VALUES
+    (201, 'Mike', 'Smith', 'Mikes123@kaboodle.com', '07112345678', 'Business Analyst'),
+    (202, 'Angela', 'Little', 'Littleangel@bitzy.co.uk', '07122345678', 'Data Analyst'),
+    (203, 'Scott', 'Williams', 'S.Williams@trooper.com', '07123345678', 'Software Tester');
+
+
+INSERT INTO courses (id, name, start_date, end_date, trainer_id)
+VALUES
+    (723, 'Business intelligence', '2021-12-05', '2022-02-03', 201),
+    (728, 'Data Analysis', '2022-02-16', '2022-04-21', 202),
+    (736, 'Dev Ops', '2020-07-12', '2022-09-28', 203);
+
+INSERT INTO modules (id, name, course_id)
+VALUES
+    (5723, 'Tableau', '723'),
+    (9728, 'SQL', '728'),
+    (3736, 'Python', '736');

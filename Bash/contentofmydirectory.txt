@@ -1,0 +1,3 @@
+Lorem.txt
+contentofmydirectory.txt
+my_bash_script.sh
