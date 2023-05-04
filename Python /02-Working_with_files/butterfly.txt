@@ -1,0 +1,2 @@
+Just trying to write in a file that I created in a code cell.
+Don't forget to close the connection.
